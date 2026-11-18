@@ -1,0 +1,434 @@
+/* 당당한 당케어 소개 페이지 - 목적 / 기획의도 / 기대효과
+   테마: 흰색 바탕 + 노란색 포인트 (조원 페이지와 통일용)
+   색상을 바꾸려면 :root 값만 수정하세요. */
+
+:root {
+  --bg: #ffffff;
+  --paper: #ffffff;
+  --ink: #222222;
+  --ink-soft: #5c5c5c;
+  --line: #ece7d3;
+  --accent: #ffc400;        /* 포인트 노란색 */
+  --accent-mid: #ffd84d;
+  --accent-light: #ffe58a;
+  --accent-pale: #fff6cc;
+  --accent-wash: #fffbea;
+  --accent-dark: #8a5a00;
+  --gray-seg: #5c6670;
+  --gray-pale: #f1f1ef;
+  --maxw: 960px;
+  --font: "IBM Plex Sans KR", "Noto Sans KR", "Apple SD Gothic Neo",
+    "Malgun Gothic", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  background: var(--accent-pale);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 상단 내비게이션 (노란 바) ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--accent);
+}
+
+.topbar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.brand:hover {
+  background: none;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.topbar nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.topbar nav a:hover {
+  background: var(--paper);
+}
+
+/* ---------- 히어로 (연한 노랑 배경) ---------- */
+.hero {
+  padding: 72px 0 64px;
+  background: linear-gradient(var(--accent-pale), var(--accent-pale)) top / 100% calc(100% - 14px) no-repeat,
+              var(--accent-mid);
+  border-bottom: 0;
+}
+
+.hero h1 {
+  margin: 0 0 20px;
+  font-size: clamp(34px, 6vw, 58px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero .lead {
+  max-width: 34em;
+  margin: 0 0 44px;
+  font-size: clamp(18px, 2.4vw, 21px);
+  color: #4a4a4a;
+}
+
+/* 혈당 구간 막대 */
+.meter {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 8px 8px 0 var(--accent);
+  padding: 28px 28px 20px;
+}
+
+.meter h2 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.meter .sub {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.scale {
+  margin-bottom: 34px;
+}
+
+.scale:last-of-type {
+  margin-bottom: 8px;
+}
+
+.scale-name {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bar {
+  display: flex;
+  height: 44px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.seg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  transform-origin: left center;
+  animation: grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.seg + .seg {
+  border-left: 2px solid var(--paper);
+}
+
+.seg.low { background: var(--gray-seg); color: #fff; }
+.seg.normal { background: var(--accent-pale); }
+.seg.border { background: var(--accent-light); }
+.seg.high { background: var(--accent); }
+.seg.very { background: var(--accent-dark); color: #fff; }
+
+.ticks {
+  position: relative;
+  height: 22px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.ticks span {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+
+.meter .unit {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); opacity: 0.4; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+/* ---------- 본문 섹션 ---------- */
+.block {
+  padding: 64px 0;
+}
+
+/* 기획의도 섹션은 연한 노랑 배경으로 구분 */
+.block.tint {
+  background: var(--accent-wash);
+  border-top: 3px solid var(--accent);
+  border-bottom: 3px solid var(--accent);
+}
+
+.block .wrap {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+}
+
+.block h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  padding: 14px 16px 12px;
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+.block.tint h2 {
+  background: var(--accent);
+}
+
+.block h2 small {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3a3a3a;
+  letter-spacing: 0;
+}
+
+.body {
+  max-width: 38em;
+}
+
+.body p {
+  margin: 0 0 1.1em;
+}
+
+.body h3 {
+  margin: 1.8em 0 0.4em;
+  font-size: 19px;
+  line-height: 1.4;
+  display: inline-block;
+  background: linear-gradient(transparent 58%, var(--accent-mid) 58%);
+}
+
+.body h3:first-child {
+  margin-top: 0;
+}
+
+.body h3 + p {
+  margin-top: 0.4em;
+}
+
+.pull {
+  margin: 0 0 1.4em;
+  padding: 16px 20px;
+  background: var(--accent-pale);
+  border-left: 8px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  font-size: 21px;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* 대상 · 기능 요약 */
+.facts {
+  margin: 28px 0 0;
+  border-top: 3px solid var(--accent);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.facts dt {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.facts dt span {
+  padding: 2px 8px;
+  background: var(--accent-mid);
+  border-radius: 4px;
+}
+
+.facts dd {
+  margin: 0;
+}
+
+/* 기대효과 */
+.effects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.effects li {
+  margin-bottom: 14px;
+  padding: 20px 22px;
+  background: var(--accent-wash);
+  border-left: 8px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.effects li:last-child {
+  margin-bottom: 0;
+}
+
+.effects strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 19px;
+}
+
+.effects p {
+  margin: 0;
+  color: #4a4a4a;
+}
+
+/* ---------- 유의사항 ---------- */
+.notice {
+  padding: 40px 0 56px;
+}
+
+.notice .box {
+  padding: 20px 24px;
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+.notice .box strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.notice .box p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.notice .refs {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.notice .refs li {
+  margin-bottom: 6px;
+}
+
+footer {
+  padding: 22px 0 30px;
+  background: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- 모바일 ---------- */
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .topbar .wrap { flex-direction: column; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; gap: 6px; }
+  .topbar nav a { padding: 4px 10px; }
+  .hero { padding: 48px 0 48px; }
+  .meter { padding: 20px 16px 14px; box-shadow: 5px 5px 0 var(--accent); }
+  .seg { font-size: 11px; }
+  .block { padding: 48px 0; }
+  .block .wrap { grid-template-columns: 1fr; gap: 20px; }
+  .block h2 { position: static; }
+  .facts div { grid-template-columns: 1fr; gap: 4px; }
+  .effects li { padding: 16px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .seg { animation: none; }
+}
