@@ -1,17 +1,21 @@
-/* 당당한 당케어 소개 페이지 - 목적 / 기획의도 / 기대효과 */
+/* 당당한 당케어 소개 페이지 - 목적 / 기획의도 / 기대효과
+   테마: 흰색 바탕 + 노란색 포인트 (조원 페이지와 통일용)
+   색상을 바꾸려면 :root 값만 수정하세요. */
 
 :root {
-  --bg: #f4f8f9;
+  --bg: #ffffff;
   --paper: #ffffff;
-  --ink: #12303b;
-  --ink-soft: #4a6670;
-  --line: #cddbe0;
-  --brand: #0f6f7c;
-  --low: #3b6ea8;
-  --normal: #2e8b6a;
-  --warn: #d9a12b;
-  --high: #d9822b;
-  --danger: #b8442f;
+  --ink: #222222;
+  --ink-soft: #5c5c5c;
+  --line: #ece7d3;
+  --accent: #ffc400;        /* 포인트 노란색 */
+  --accent-mid: #ffd84d;
+  --accent-light: #ffe58a;
+  --accent-pale: #fff6cc;
+  --accent-wash: #fffbea;
+  --accent-dark: #8a5a00;
+  --gray-seg: #5c6670;
+  --gray-pale: #f1f1ef;
   --maxw: 960px;
   --font: "IBM Plex Sans KR", "Noto Sans KR", "Apple SD Gothic Neo",
     "Malgun Gothic", system-ui, sans-serif;
@@ -39,11 +43,19 @@ body {
 }
 
 a {
-  color: var(--brand);
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  background: var(--accent-pale);
 }
 
 :focus-visible {
-  outline: 3px solid var(--brand);
+  outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
 
@@ -53,14 +65,12 @@ a {
   padding: 0 24px;
 }
 
-/* ---------- 상단 내비게이션 ---------- */
+/* ---------- 상단 내비게이션 (노란 바) ---------- */
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(244, 248, 249, 0.94);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(6px);
+  background: var(--accent);
 }
 
 .topbar .wrap {
@@ -68,38 +78,46 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 56px;
+  min-height: 60px;
 }
 
 .brand {
   font-weight: 700;
+  font-size: 18px;
   color: var(--ink);
   text-decoration: none;
   letter-spacing: -0.01em;
 }
 
+.brand:hover {
+  background: none;
+}
+
 .topbar nav {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .topbar nav a {
-  color: var(--ink-soft);
+  color: var(--ink);
   text-decoration: none;
   font-size: 15px;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  padding: 4px 14px;
+  border-radius: 999px;
 }
 
 .topbar nav a:hover {
-  color: var(--ink);
-  border-bottom-color: var(--brand);
+  background: var(--paper);
 }
 
-/* ---------- 히어로 ---------- */
+/* ---------- 히어로 (연한 노랑 배경) ---------- */
 .hero {
-  padding: 72px 0 56px;
+  padding: 72px 0 64px;
+  background: linear-gradient(var(--accent-pale), var(--accent-pale)) top / 100% calc(100% - 14px) no-repeat,
+              var(--accent-mid);
+  border-bottom: 0;
 }
 
 .hero h1 {
@@ -114,14 +132,15 @@ a {
   max-width: 34em;
   margin: 0 0 44px;
   font-size: clamp(18px, 2.4vw, 21px);
-  color: var(--ink-soft);
+  color: #4a4a4a;
 }
 
 /* 혈당 구간 막대 */
 .meter {
   background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 8px 8px 0 var(--accent);
   padding: 28px 28px 20px;
 }
 
@@ -165,7 +184,7 @@ a {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  color: #fff;
+  color: var(--ink);
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
@@ -178,11 +197,11 @@ a {
   border-left: 2px solid var(--paper);
 }
 
-.seg.low { background: var(--low); }
-.seg.normal { background: var(--normal); }
-.seg.border { background: var(--warn); color: #3b2c00; }
-.seg.high { background: var(--high); }
-.seg.very { background: var(--danger); }
+.seg.low { background: var(--gray-seg); color: #fff; }
+.seg.normal { background: var(--accent-pale); }
+.seg.border { background: var(--accent-light); }
+.seg.high { background: var(--accent); }
+.seg.very { background: var(--accent-dark); color: #fff; }
 
 .ticks {
   position: relative;
@@ -216,7 +235,13 @@ a {
 /* ---------- 본문 섹션 ---------- */
 .block {
   padding: 64px 0;
-  border-top: 1px solid var(--line);
+}
+
+/* 기획의도 섹션은 연한 노랑 배경으로 구분 */
+.block.tint {
+  background: var(--accent-wash);
+  border-top: 3px solid var(--accent);
+  border-bottom: 3px solid var(--accent);
 }
 
 .block .wrap {
@@ -233,14 +258,21 @@ a {
   position: sticky;
   top: 84px;
   align-self: start;
+  padding: 14px 16px 12px;
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+.block.tint h2 {
+  background: var(--accent);
 }
 
 .block h2 small {
   display: block;
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 14px;
   font-weight: 400;
-  color: var(--ink-soft);
+  color: #3a3a3a;
   letter-spacing: 0;
 }
 
@@ -256,16 +288,24 @@ a {
   margin: 1.8em 0 0.4em;
   font-size: 19px;
   line-height: 1.4;
+  display: inline-block;
+  background: linear-gradient(transparent 58%, var(--accent-mid) 58%);
 }
 
 .body h3:first-child {
   margin-top: 0;
 }
 
+.body h3 + p {
+  margin-top: 0.4em;
+}
+
 .pull {
   margin: 0 0 1.4em;
-  padding-left: 18px;
-  border-left: 4px solid var(--brand);
+  padding: 16px 20px;
+  background: var(--accent-pale);
+  border-left: 8px solid var(--accent);
+  border-radius: 0 6px 6px 0;
   font-size: 21px;
   line-height: 1.55;
   font-weight: 500;
@@ -275,12 +315,12 @@ a {
 /* 대상 · 기능 요약 */
 .facts {
   margin: 28px 0 0;
-  border-top: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
 }
 
 .facts div {
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 110px 1fr;
   gap: 16px;
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
@@ -288,7 +328,13 @@ a {
 
 .facts dt {
   font-weight: 700;
-  color: var(--brand);
+  color: var(--ink);
+}
+
+.facts dt span {
+  padding: 2px 8px;
+  background: var(--accent-mid);
+  border-radius: 4px;
 }
 
 .facts dd {
@@ -303,16 +349,15 @@ a {
 }
 
 .effects li {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.effects li:first-child {
-  padding-top: 0;
+  margin-bottom: 14px;
+  padding: 20px 22px;
+  background: var(--accent-wash);
+  border-left: 8px solid var(--accent);
+  border-radius: 0 6px 6px 0;
 }
 
 .effects li:last-child {
-  border-bottom: 0;
+  margin-bottom: 0;
 }
 
 .effects strong {
@@ -323,20 +368,18 @@ a {
 
 .effects p {
   margin: 0;
-  color: var(--ink-soft);
+  color: #4a4a4a;
 }
 
 /* ---------- 유의사항 ---------- */
 .notice {
   padding: 40px 0 56px;
-  border-top: 1px solid var(--line);
 }
 
 .notice .box {
   padding: 20px 24px;
-  background: #fff7e6;
-  border-left: 4px solid var(--high);
-  border-radius: 0 4px 4px 0;
+  background: var(--accent);
+  border-radius: 6px;
 }
 
 .notice .box strong {
@@ -347,7 +390,7 @@ a {
 .notice .box p {
   margin: 0;
   font-size: 15px;
-  color: #5a4220;
+  color: var(--ink);
 }
 
 .notice .refs {
@@ -363,23 +406,26 @@ a {
 }
 
 footer {
-  padding: 28px 0 40px;
-  border-top: 1px solid var(--line);
+  padding: 22px 0 30px;
+  background: var(--accent);
   font-size: 14px;
-  color: var(--ink-soft);
+  font-weight: 500;
+  color: var(--ink);
 }
 
 /* ---------- 모바일 ---------- */
 @media (max-width: 720px) {
   body { font-size: 16px; }
   .topbar .wrap { flex-direction: column; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; gap: 6px; }
-  .hero { padding: 48px 0 40px; }
-  .meter { padding: 20px 16px 14px; }
+  .topbar nav a { padding: 4px 10px; }
+  .hero { padding: 48px 0 48px; }
+  .meter { padding: 20px 16px 14px; box-shadow: 5px 5px 0 var(--accent); }
   .seg { font-size: 11px; }
   .block { padding: 48px 0; }
   .block .wrap { grid-template-columns: 1fr; gap: 20px; }
   .block h2 { position: static; }
-  .facts div { grid-template-columns: 1fr; gap: 2px; }
+  .facts div { grid-template-columns: 1fr; gap: 4px; }
+  .effects li { padding: 16px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
